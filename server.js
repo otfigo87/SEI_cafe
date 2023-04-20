@@ -1,3 +1,5 @@
+require('dotenv').config();
+require('./config/database');//connect to db
 const express = require('express');
 const path = require('path'); // node module
 const favicon = require('serve-favicon');
