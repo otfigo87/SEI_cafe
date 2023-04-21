@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useState} from 'react';
+import { signUp } from '../utilities/users-service';
 
 const SignUpForm = () => {
     const [formData, setFormData] = useState({
@@ -10,10 +11,25 @@ const SignUpForm = () => {
     })
     const disable = formData.password !== formData.confirm //true or false
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData)
+    const handleSubmit = async (e) => {
+        e.preventDefault();   
+        try {
+          console.log(formData)   
+          //we don't want to send error and confirm properties
+          //so we are making new object from the state (data to send to the server)
+          const userData = { 
+            name: formData.name,
+            email: formData.email,
+            password: formData.password
+          }  
+          // returns a token with user info (all the work done inside the users-service.js file inside utilities)
+          const user = await signUp(userData) // user service 
+          console.log(user);
+        } catch (error) {
+          setFormData({...formData, error:"Sign Up Failed - Try Again"})
+        }
     }
+
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value, error: ''})
     }
