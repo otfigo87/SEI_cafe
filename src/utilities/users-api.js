@@ -1,3 +1,4 @@
+//////////// !NETWORK LOGIC //////////////
 //make AJAX requests to the Express server
 //*SignUpForm.jsx <--> users-service.js <--> users-api.js <-Internet-> server.js (Express)
 //*handleSubmit ==> [signUp]users-service ==> [signUp]users-api ==> server Express
@@ -17,3 +18,16 @@ export async function signUp(userData) {
         throw new Error('Invalid Sign Up!')
     }
 }
+
+export const login = async (credentials) => {
+    const res = await fetch("api/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
+    if(res.ok) {
+        return res.json()
+    } else {
+        throw new Error("Invalid credentials!")
+    }
+};
