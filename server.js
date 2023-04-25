@@ -23,9 +23,6 @@ app.use(express.static(path.join(__dirname, 'build')))
 
 // * All other routes
 app.use('/api/users', require('./routes/api/users'))
-app.use("/api/users/login", require("./routes/api/login"));
-
-
 
 
 

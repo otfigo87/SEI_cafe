@@ -16,7 +16,7 @@ const AuthPage = ({setUser}) => {
       <button onClick={onClickHandler}>{showLogin ? "Login" : "Sign up"}</button>
       {
       showLogin ? <SignUpForm  setUser={setUser}/> :
-      <LoginForm />
+      <LoginForm setUser={setUser} />
        }
     </div>
   )

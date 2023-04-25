@@ -3,9 +3,9 @@
 //*SignUpForm.jsx <--> users-service.js <--> users-api.js <-Internet-> server.js (Express)
 //*handleSubmit ==> [signUp]users-service ==> [signUp]users-api ==> server Express
 //AJAX request is being made from the browser
+//! SignUp
+const BASE_URL = 'api/users'; //base path of the express route we'll define
 export async function signUp(userData) {
-    const BASE_URL = 'api/users'; //base path of the express route we'll define
-
     const res = await fetch(BASE_URL, {//fetch use a second arg (options object) to make requests
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -19,8 +19,9 @@ export async function signUp(userData) {
     }
 }
 
+//! Login
 export const login = async (credentials) => {
-    const res = await fetch("api/users/login", {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),

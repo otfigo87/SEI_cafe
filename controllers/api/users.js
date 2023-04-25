@@ -25,17 +25,19 @@ const create = async(req, res) => {
 
 const login = async (req, res) => {
     try {
-        const user = await User.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email});//find the user
         if(!user){
             return res.status(400).json({message: "Invalid email or password"})
         }
+        //check password
         const match = await bcrypt.compare(req.body.password, user.password)
         if(!match){
             return res
               .status(400) .json({ message: "Invalid email or password" });
         }
-        
+        //password correct ==> Token
         const token = createJWT(user)
+        res.json(token);
     
     } catch (error) {
         res.status(400).json(error);
