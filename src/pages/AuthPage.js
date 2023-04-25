@@ -4,22 +4,25 @@ import { useState } from 'react';
 
 const AuthPage = ({setUser}) => {
 
-  const [showLogin, setShowLogin] = useState(false)
+  const [showLogin, setShowLogin] = useState(true)
 
   const onClickHandler = () => {
     setShowLogin(!showLogin)
   }
 
   return (
-    <div>
-      <h1>Auth Page</h1>
-      <button onClick={onClickHandler}>{showLogin ? "Login" : "Sign up"}</button>
-      {
-      showLogin ? <SignUpForm  setUser={setUser}/> :
-      <LoginForm setUser={setUser} />
-       }
-    </div>
-  )
+    <main className="AuthPage">
+      <h1 >Auth Page</h1>
+      <button onClick={onClickHandler}>
+        {showLogin ? "Sign up" : "Login"}
+      </button>
+      {showLogin ? (
+        <LoginForm setUser={setUser} />
+      ) : (
+        <SignUpForm setUser={setUser} />
+      )}
+    </main>
+  );
 }
 
 export default AuthPage

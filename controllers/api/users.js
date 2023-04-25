@@ -44,6 +44,11 @@ const login = async (req, res) => {
     }
 }
 
+const checkToken = async(req, res) => {
+  // req.user will always be there for you when a token is sent
+  console.log("req.user", req.user);
+  res.json(req.exp);
+}
 
 
-module.exports = { create, login }
+module.exports = { create, login, checkToken }

@@ -3,32 +3,46 @@
 //*SignUpForm.jsx <--> users-service.js <--> users-api.js <-Internet-> server.js (Express)
 //*handleSubmit ==> [signUp]users-service ==> [signUp]users-api ==> server Express
 //AJAX request is being made from the browser
-//! SignUp
-const BASE_URL = 'api/users'; //base path of the express route we'll define
-export async function signUp(userData) {
-    const res = await fetch(BASE_URL, {//fetch use a second arg (options object) to make requests
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(userData),// fetch requires data payloads to be stringified
-    });
+import { getToken } from "./users-service";
 
-    if(res.ok) { // if request was successful 
-        return res.json(); //JWT Token
-    } else {
-        throw new Error('Invalid Sign Up!')
-    }
+//! SignUp
+const BASE_URL = "/api/users";
+
+export function signUp(userData) {
+  return sendRequest(BASE_URL, "POST", userData);
 }
 
 //! Login
-export const login = async (credentials) => {
-    const res = await fetch(`${BASE_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(credentials),
-    });
-    if(res.ok) {
-        return res.json()
-    } else {
-        throw new Error("Invalid credentials!")
-    }
-};
+export function login(credentials) {
+  return sendRequest(`${BASE_URL}/login`, "POST", credentials);
+}
+
+//! Check Token
+export const checkToken = () => {
+    return sendRequest(`${BASE_URL}/check-token`)
+}
+
+
+//*--- Helper Functions ---*/
+
+async function sendRequest(url, method = "GET", payload = null) {
+  // Fetch accepts an options object as the 2nd argument
+  // used to include a data payload, set headers, etc.
+  const options = { method };
+  if (payload) {
+    options.headers = { "Content-Type": "application/json" };
+    options.body = JSON.stringify(payload);
+  }
+
+  const token = getToken();
+
+  if (token) {
+    options.headers = options.headers || {};
+    options.headers.Authorization = `Bearer ${token}`;
+  }
+
+  const res = await fetch(url, options);
+  // res.ok will be false if the status code set to 4xx in the controller action
+  if (res.ok) return res.json();
+  throw new Error("Bad Request");
+}

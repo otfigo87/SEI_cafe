@@ -1,8 +1,18 @@
-import React from 'react'
+import {checkToken}from '../utilities/users-service';
 
 const OrderHistoryPage = () => {
+
+  const handleCheckToken = async() => {
+    const expDate = await checkToken();
+    alert(expDate);
+  }
   return (
-    <div>OrderHistoryPage</div>
+    <div>
+      <h1>OrderHistoryPage</h1>
+      <button onClick={handleCheckToken}>
+        Check When My Login Expires
+      </button>
+    </div>
   )
 }
 

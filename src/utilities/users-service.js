@@ -6,7 +6,7 @@
 import * as usersApi from './users-api';
 
 //! Get Token
-const getToken = () => {
+export const getToken = () => {
   const token = localStorage.getItem('token');
   if (!token) return null;
   //obtain the payload of the token
@@ -48,3 +48,8 @@ export const login = async (credentials) => {
   localStorage.setItem("token", token);
   return getUser();
 };
+
+//! checkToken
+export async function checkToken() {
+  return usersApi.checkToken().then((dateStr) => new Date(dateStr));
+}
