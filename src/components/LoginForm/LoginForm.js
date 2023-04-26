@@ -1,27 +1,26 @@
 import { useState } from "react";
-import { login } from "../utilities/users-service";
+import * as usersService from "../../utilities/users-service";
 
 export default function LoginForm({ setUser }) {
-
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-
   const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  function handleChange(evt) {
+    setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
     setError("");
   }
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();
+  async function handleSubmit(evt) {
+    // Prevent form from being submitted to the server
+    evt.preventDefault();
     try {
       // The promise returned by the signUp service method
       // will resolve to the user object included in the
       // payload of the JSON Web Token (JWT)
-      const user = await login(credentials);
+      const user = await usersService.login(credentials);
       setUser(user);
     } catch {
       setError("Log In Failed - Try Again");
@@ -30,8 +29,8 @@ export default function LoginForm({ setUser }) {
 
   return (
     <div>
-      <div className="form-container" onSubmit={handleSubmit}>
-        <form autoComplete="off">
+      <div className="form-container">
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Email</label>
           <input
             type="text"
@@ -40,7 +39,6 @@ export default function LoginForm({ setUser }) {
             onChange={handleChange}
             required
           />
-
           <label>Password</label>
           <input
             type="password"

@@ -5,9 +5,9 @@
 //AJAX request is being made from the browser
 import { getToken } from "./users-service";
 
-//! SignUp
 const BASE_URL = "/api/users";
 
+//! SignUp
 export function signUp(userData) {
   return sendRequest(BASE_URL, "POST", userData);
 }
