@@ -1,4 +1,3 @@
-//////////// !SIGN-UP LOGIC///////////
 //*functions used to sign-up, log-in, log-out ...
 //*SignUpForm.jsx <--> users-service.js <--> users-api.js <-Internet-> server.js (Express)
 //*handleSubmit ==> [signUp]users-service ==> users-api ==> server Express
