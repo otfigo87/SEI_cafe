@@ -15,7 +15,7 @@ function App() {
     <main className={styles.App}>
       {user ? (
         <>
-          <NavBar user={user} setUser={setUser} />
+          {/* <NavBar user={user} setUser={setUser} /> */}
           <Routes>
             <Route
               path="/orders/new"
