@@ -5,3 +5,6 @@ Tech Stack
 Client: React, Redux, CSS, API (Axios), React-dom, React-router-dom.
 
 Server: Node, Express, Mongoose, MongoDB, JWT, dotenv, Bcrypt, Cors, Morgan, serve-favicon.
+
+Unsolved Problems
+Using Redux as a state management, There are several benefits to using Redux for state management in a React application. These benefits include: Centralized State Management: Redux provides a centralized state management system that can be accessed by all components. This makes it easier to manage state in large applications.
